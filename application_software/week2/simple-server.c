@@ -67,7 +67,7 @@ int main(int argc, char *argv[]) {
 
   /* send reply to client */
 
-  n = write(newsockfd, "I got your message", 18);
+  n = write(newsockfd, buffer, 100);
   if (n < 0)
     error("ERROR writing to socket");
 
