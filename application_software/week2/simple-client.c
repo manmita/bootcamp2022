@@ -49,12 +49,17 @@ int main(int argc, char *argv[]) {
   if (connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
     error("ERROR connecting");
 
+  while (1){
+  
+  
   /* ask user for input */
 
   printf("Please enter the message: ");
   bzero(buffer, 256);
   fgets(buffer, 255, stdin);
-
+  if (strcmp(buffer,"exit\n")==0){
+    break;
+  }
   /* send user message to server */
 
   n = write(sockfd, buffer, strlen(buffer));
@@ -68,6 +73,10 @@ int main(int argc, char *argv[]) {
   if (n < 0)
     error("ERROR reading from socket");
   printf("Server response: %s\n", buffer);
+
+  
+  }
+  close(sockfd);
 
   return 0;
 }

@@ -51,12 +51,14 @@ int main(int argc, char *argv[]) {
   listen(sockfd, 5);
   clilen = sizeof(cli_addr);
 
+  
   /* accept a new request, create a newsockfd */
 
   newsockfd = accept(sockfd, (struct sockaddr *)&cli_addr, &clilen);
   if (newsockfd < 0)
     error("ERROR on accept");
 
+  while(1){
   /* read message from client */
 
   bzero(buffer, 256);
@@ -66,10 +68,11 @@ int main(int argc, char *argv[]) {
   printf("Here is the message: %s", buffer);
 
   /* send reply to client */
-
-  n = write(newsockfd, buffer, 100);
+  
+  n = write(newsockfd, buffer, 255);
   if (n < 0)
     error("ERROR writing to socket");
+  }
 
   return 0;
 }
